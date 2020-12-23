@@ -5,7 +5,15 @@ function resolve(dir){
 
 module.exports={
     devServer:{
-        port:8085
+        port:8085,
+        proxy:{
+            '/backapi':{
+                target:'http://localhost:9000',
+                pathRewrite:{
+                    '^/backapi':'/'
+                }
+            }
+        }
     },
     chainWebpack(config){
         config.module
