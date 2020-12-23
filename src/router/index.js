@@ -32,6 +32,7 @@ const router=new Router({
         {
             path:'/layout',
             name:'layout',
+            redirect:'/layout/home',
             component: Layout,
             meta:{title:'后台管理系统'},
             children:[

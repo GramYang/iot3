@@ -4,6 +4,9 @@ function resolve(dir){
 }
 
 module.exports={
+    devServer:{
+        port:8085
+    },
     chainWebpack(config){
         config.module
             .rule('svg')

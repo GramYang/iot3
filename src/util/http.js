@@ -1,10 +1,10 @@
 import axios from 'axios'
 import md5 from 'js-md5'
 import * as base64 from 'js-base64'
-import {JSEncrypt} from 'jsencrypt'
 import {removeToken} from "@/util/auth";
 import router from '@/router/index'
 import {MessageBox} from "element-ui";
+import {JSEncrypt} from 'encryptlong'
 
 export const baseUrl='http://localhost:9000'
 
@@ -28,7 +28,7 @@ function paramsencode(data){
 
 const http=axios.create({
     baseURL:baseUrl,
-    timeout:1000*3,
+    timeout:1000*10,
     withCredentials:true,
     headers:{
         'Content-Type':"application/json:charset=utf-8"
@@ -38,7 +38,7 @@ const http=axios.create({
 http.interceptors.request.use((config)=>{
     let res={}
     if(config.method==='post' && config.data){//post
-        config.data={data:encrypt.encrypt(JSON.stringify(config.data))}
+        config.data={data:encrypt.encryptLong(JSON.stringify(config.data))}
     }else if(config.method==='get'&& config.params){//get
         res=paramsencode(config.params)
         config.params={params:res.b64}
@@ -52,7 +52,7 @@ http.interceptors.request.use((config)=>{
 http.interceptors.response.use((config)=>{
     return config
 },(error)=>{
-    if(error.response.status===401){
+    if(error.response && error.response.status===401){
         removeToken()
         router.push('/login')
     }else{

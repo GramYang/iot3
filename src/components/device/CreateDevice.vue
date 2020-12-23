@@ -167,12 +167,14 @@
                         data:this.maxtrixToArray(maxtrix),
                     }).then(response=>{
                         //只要返回的不是200，那就是文件解析错误，停止上传
-                        if(response.status!==200){
-                            return false
+                        if(response){
+                            if(response.status!==200){
+                                return false
+                            }
+                            this.$alert('上传成功: '+response.data.message,'上传结果',{
+                                confirmButtonText:'ok',
+                            })
                         }
-                        this.$alert('上传成功: '+response.data.message,'上传结果',{
-                            confirmButtonText:'ok',
-                        })
                     })
                 }
                 reader.readAsBinaryString(file)
@@ -180,13 +182,9 @@
             //将xlsx中读取到的矩阵转换为新建设备的对象数组
             maxtrixToArray(m){
                 let result=[]
-                for(let i=2;i<m[0].length-1;i++){
+                for(let i=2;i<m[0].length;i++){
                     let o={}
                     for(let j=0;j<m.length;j++){
-                        let t=m[j][i]
-                        if(typeof t!=='string'){
-                            t=t.toString()
-                        }
                         switch(j){
                             case 0:
                                 o.col=m[j][i]
