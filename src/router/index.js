@@ -21,7 +21,8 @@ NProgress.configure({showSpinner:false})
 Vue.use(Router)
 
 const router=new Router({
-    mode:'history',
+    // mode:'history',
+    base:__dirname,
     routes:[
         {
             path:'/login',

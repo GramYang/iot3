@@ -6,7 +6,8 @@ import router from '@/router/index'
 import {MessageBox} from "element-ui";
 import {JSEncrypt} from 'encryptlong'
 
-export const baseUrl='http://localhost:8085'
+export const baseUrl='http://106.54.87.204:8086'
+// export const baseUrl='http://localhost:8086'
 
 const publicKey ='MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3HMMf5Ic/3aMbl6U9HHq\n' +
     'brH04jciphH0sNzw7kjZQgaSSFK4kIxRU11Rz6iGiMHYcJitP0FdQzkCkVs3MpWY\n' +
@@ -28,20 +29,15 @@ function paramsencode(data){
 
 const http=axios.create({
     baseURL:baseUrl,
-    timeout:1000*10,
+    timeout:1000*30,
     withCredentials:true,
-    headers:{
-        'Content-Type':"application/json:charset=utf-8"
-    }
 })
 
 http.interceptors.request.use((config)=>{
-    config.url='/backapi'+config.url
-    let res={}
     if(config.method==='post' && config.data){//post
         config.data={data:encrypt.encryptLong(JSON.stringify(config.data))}
     }else if(config.method==='get'&& config.params){//get
-        res=paramsencode(config.params)
+        let res=paramsencode(config.params)
         config.params={params:res.b64}
         config.headers.signature=res.m5
     }
