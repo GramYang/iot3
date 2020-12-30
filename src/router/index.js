@@ -1,107 +1,95 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
 import getPageTitle from '@/util/utils'
-import {getToken} from '@/util/auth'
-import Login from "@/components/Login"
-import Layout from "@/components/layout/Layout"
-import Home from "@/components/layout/Home"
-import ServiceHall from "@/components/ServiceHall"
-import CreateDevice from "@/components/device/CreateDevice"
-import DeleteDevice from "@/components/device/DeleteDevice";
-import UpdateDevice from "@/components/device/UpdateDevice";
-import QueryDevice from "@/components/device/QueryDevice";
-import Management from "@/components/Management";
-import QueryDeviceList from "@/components/device/QueryDeviceList";
-import DeviceList from "@/components/device/DeviceList";
-import LocalDeviceList from "@/components/device/LocalDeviceList";
-import SearchLocalDevice from "@/components/device/SearchLocalDevice";
+import
+{getToken} from '@/util/auth'
 
 NProgress.configure({showSpinner:false})
-Vue.use(Router)
+Vue.use(VueRouter)
 
-const router=new Router({
+const router=new VueRouter({
     // mode:'history',
-    base:__dirname,
+    base:__dirname,//对应dist目录
     routes:[
         {
             path:'/login',
             name:'login',
-            component: Login,
+            component: ()=>import('@/components/Login'),
             hidden:true
         },
         {
             path:'/layout',
             name:'layout',
             redirect:'/layout/home',
-            component: Layout,
+            component: ()=>import('@/components/layout/Layout'),
             meta:{title:'后台管理系统'},
             children:[
                 {
                     path:'home',
                     name:'home',
                     meta:{title:'首页'},
-                    component:Home
+                    component:()=>import('@/components/layout/Home')
                 },
                 {
                     path:'service',
                     name:'service',
                     meta:{title:'服务大厅'},
-                    component: ServiceHall
+                    component: ()=>import('@/components/ServiceHall')
                 },
                 {
                     path:'service/device/create',
                     name:'create_device',
                     meta:{title:'新建设备'},
-                    component:CreateDevice
+                    component:()=>import('@/components/device/CreateDevice')
                 },
                 {
                     path:'service/device/searchLocalDevice',
                     name:'search_local_device',
                     meta:{title:'搜索本地设备'},
-                    component: SearchLocalDevice
+                    component: ()=>import('@/components/device/SearchLocalDevice')
                 },
                 {
                     path:'service/device/localDeviceList',
                     name:'local_device_list',
                     meta:{title:'本地设备列表'},
-                    component: LocalDeviceList
+                    component: ()=>import('@/components/device/LocalDeviceList')
                 },
                 {
                     path:'service/device/delete',
                     name:'delete_device',
                     meta:{title:'删除设备'},
-                    component:DeleteDevice
+                    component:()=>import('@/components/device/DeleteDevice')
                 },
                 {
                     path:'service/device/update',
                     name:'update_device',
                     meta:{title: '更新设备'},
-                    component:UpdateDevice
+                    component:()=>import('@/components/device/UpdateDevice')
                 },
                 {
                     path:'service/device/query',
                     name:'query_device',
                     meta:{title: '查询设备'},
-                    component:QueryDevice
+                    component:()=>import('@/components/device/QueryDevice')
                 },
                 {
                     path:'service/device/queryList',
                     name:'query_device_list',
                     meta:{title:'查询设备列表'},
-                    component: QueryDeviceList
+                    component: ()=>import('@/components/device/QueryDeviceList')
                 },
                 {
                     path:'service/device/deviceList',
                     name:'device_list',
                     meta:{title:'设备列表'},
-                    component: DeviceList
+                    component: ()=>import('@/components/device/DeviceList')
                 },
                 {
                     path:'management',
                     name:'management',
                     meta:{title:'管理'},
-                    component:Management
+                    component:()=>import('@/components/Management')
                 }
             ]
         }

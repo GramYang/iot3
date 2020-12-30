@@ -6,7 +6,7 @@ import router from '@/router/index'
 import {MessageBox} from "element-ui";
 import {JSEncrypt} from 'encryptlong'
 
-export const baseUrl='http://106.54.87.204:8086'
+export const baseUrl='http://106.54.87.204:8085/backend/'
 // export const baseUrl='http://localhost:8086'
 
 const publicKey ='MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3HMMf5Ic/3aMbl6U9HHq\n' +
