@@ -42,6 +42,9 @@
             <el-form-item label="产品ID" prop="productId">
                 <el-input v-model="device.productId"></el-input>
             </el-form-item>
+            <el-form-item label="设备密钥" prop="secretKey">
+                <el-input v-model="device.secretKey"></el-input>
+            </el-form-item>
             <el-form-item>
                 <el-button :loading="loading" type="primary" @click="onSubmit">创建</el-button>
                 <el-button @click="onReset('device')">重置</el-button>
@@ -71,7 +74,8 @@
                         imsi:'',
                         pskValue:''
                     },
-                    productId:''
+                    productId:'',
+                    secretKey:'',
                 },
                 loading:false,
                 createRules:{
@@ -212,6 +216,9 @@
                                 break
                             case 8:
                                 o.productId=m[j][i]
+                                break
+                            case 9:
+                                o.secretKey=m[j][i]
                                 break
                         }
                     }
